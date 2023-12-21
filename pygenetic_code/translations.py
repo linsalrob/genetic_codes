@@ -1,9 +1,11 @@
 """
 Translation specific methdos
 """
-from pygenetic_code import code_to_table, all_possible_codons
-from pygenetic_code.Error import InvalidCodonException
-from pygenetic_code.genetic_code import three_letters_to_one_letter
+
+from .code_to_table import code_to_table, all_possible_codons
+from .dna_and_rna import rna_to_dna
+from .Error import InvalidCodonException
+from .genetic_code import three_letters_to_one_letter
 
 
 def translate(codon, translation_table=1, one_letter=False):
@@ -14,6 +16,9 @@ def translate(codon, translation_table=1, one_letter=False):
     :param one_letter: return the one letter amino acid abbreviation
     :return: the amino acid abbreviation
     """
+
+    if 'U' in codon:
+        codon = rna_to_dna(codon)
 
     if codon not in all_possible_codons():
         raise InvalidCodonException(f"{codon} is not a valid codon. It should be one of {all_possible_codons()}")

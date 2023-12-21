@@ -1,9 +1,11 @@
 from .genetic_code import genetic_codes, all_possible_codons
 from .code_to_table import code_to_table, codons_to_translation_tables
-from .translate import translate
+from .translations import translate
+from .dna_and_rna import dna_to_rna, rna_to_dna
 
 __all__ = [
     'genetic_codes', 'all_possible_codons',
     'code_to_table', 'codons_to_translation_tables',
-    'translate'
+    'translate',
+    'dna_to_rna', 'rna_to_dna'
 ]
