@@ -1,6 +1,11 @@
 import json
 
 def genetic_codes():
+    """
+    The genetic codes. This has been imported from codes/ncbi.json, and is provided to hopefully make things
+    slightly faster than reading that file
+    :return: a dictionary of translation tables, their initiators, and their codons
+    """
     return json.loads('{"1": {"initiators": ["TTG", "CTG", "ATG"], "codons": {"TTT": "Phe", "TCT": "Ser", '
                       '"TAT": "Tyr", "TGT": "Cys", "TTC": "Phe", "TCC": "Ser", "TAC": "Tyr", "TGC": "Cys", '
                       '"TTA": "Leu", "TCA": "Ser", "TAA": "Ter", "TGA": "Ter", "TTG": "Leu", "TCG": "Ser", '
@@ -281,3 +286,26 @@ def genetic_codes():
                       '"GTT": "Val", "GCT": "Ala", "GAT": "Asp", "GGT": "Gly", "GTC": "Val", "GCC": "Ala", '
                       '"GAC": "Asp", "GGC": "Gly", "GTA": "Val", "GCA": "Ala", "GAA": "Glu", "GGA": "Gly", '
                       '"GTG": "Val", "GCG": "Ala", "GAG": "Glu", "GGG": "Gly"}}}')
+
+def all_possible_codons():
+    """
+    ALl 64 codons in order. This is just a simplified function to ensure we get them all
+    :return: a set of all 64 codons.
+    """
+    return {
+        'AAA', 'AAC', 'AAG', 'AAT', 'ACA', 'ACC', 'ACG', 'ACT', 'AGA', 'AGC', 'AGG', 'AGT', 'ATA', 'ATC', 'ATG', 'ATT',
+        'CAA', 'CAC', 'CAG', 'CAT', 'CCA', 'CCC', 'CCG', 'CCT', 'CGA', 'CGC', 'CGG', 'CGT', 'CTA', 'CTC', 'CTG', 'CTT',
+        'GAA', 'GAC', 'GAG', 'GAT', 'GCA', 'GCC', 'GCG', 'GCT', 'GGA', 'GGC', 'GGG', 'GGT', 'GTA', 'GTC', 'GTG', 'GTT',
+        'TAA', 'TAC', 'TAG', 'TAT', 'TCA', 'TCC', 'TCG', 'TCT', 'TGA', 'TGC', 'TGG', 'TGT', 'TTA', 'TTC', 'TTG', 'TTT'
+    }
+
+def three_letters_to_one_letter():
+    """
+    By default we use three letter amino acid encoding, just because. This provides a translation back to one letter
+    :return: a dict of amino acid codes
+    """
+    return {
+        "Ala" : "A", "Arg" : "R", "Asn" : "N", "Asp" : "D", "Cys" : "C", "Gln" : "Q", "Glu" : "E", "Gly" : "G",
+        "His" : "H", "Ile" : "I", "Leu" : "L", "Lys" : "K", "Met" : "M", "Phe" : "F", "Pro" : "P", "Ser" : "S",
+        "Thr" : "T", "Trp" : "W", "Tyr" : "Y", "Val" : "V", "Ter" : "*"
+    }
