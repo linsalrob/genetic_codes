@@ -1,16 +1,15 @@
-"""
+from pygenetic_code import genetic_codes
 
-"""
+codes = genetic_codes()
 
-import os
-import sys
-import argparse
+def test_codes():
+    assert len(codes.keys()) == 25
 
-__author__ = 'Rob Edwards'
+def test_each_code():
+    for i in [1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14, 15, 16, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]:
+        assert len(codes[str(i)]['codons']) == 64
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description=' ')
-    parser.add_argument('-f', help='input file', required=True)
-    parser.add_argument('-v', help='verbose output', action='store_true')
-    args = parser.parse_args()
+if __name__ == '__main__':
+    test_codes()
+    test_each_code()
