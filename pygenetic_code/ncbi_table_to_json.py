@@ -33,7 +33,7 @@ if __name__ == "__main__":
             if m:
                 if codons:
                     data[trans_table] = {'initiators': list(initiators), 'codons': codons}
-                trans_table = m.groups()[0]
+                trans_table = int(m.groups()[0])
                 initiators = set()
                 codons = {}
             elif table.match(l):
