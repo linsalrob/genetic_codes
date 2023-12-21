@@ -1,7 +1,7 @@
 """
 Test the translation functions
 """
-from pygenetic_code.translate import translate
+from pygenetic_code.translations import translate
 
 
 def test_translation():
