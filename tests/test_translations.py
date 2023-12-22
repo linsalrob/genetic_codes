@@ -5,6 +5,10 @@ from pygenetic_code.translations import translate
 
 
 def test_translation():
+    """
+    Can we properly translate?
+    :return: None
+    """
     assert translate('ATG', 1, False) == 'Met'
     assert translate('TGA', 21, False) == 'Trp'
     assert translate('TGA', 1, False) == 'Ter'
