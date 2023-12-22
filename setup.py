@@ -40,7 +40,7 @@ def get_data_files():
     What are the datafiles
     :return:
     """
-    data_files = [(".", ["README.md"]), ("codes", ["ncbi.json", "ncbi_tables.txt"])]
+    data_files = [(".", ["README.md"]), ("codes", ["codes/ncbi.json", "codes/ncbi_tables.txt"])]
     return data_files
 
 
