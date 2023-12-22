@@ -1,9 +1,8 @@
 """
 Convert a genetic code to a json table
 """
-import sys
 
-from .Error import InvalidTranslationTableException
+from .error import InvalidTranslationTableException
 from .genetic_code import genetic_codes, all_possible_codons
 
 
@@ -17,10 +16,9 @@ def code_to_table(translation_table):
     """
 
     code = genetic_codes()
-    if (str(translation_table)) in code:
+    if str(translation_table) in code:
         return code[str(translation_table)]
-    else:
-        raise InvalidTranslationTableException(f"Translation table {translation_table} is not defined")
+    raise InvalidTranslationTableException(f"Translation table {translation_table} is not defined")
 
 
 def codons_to_translation_tables():

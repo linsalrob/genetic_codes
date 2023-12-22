@@ -4,7 +4,7 @@ Translation specific methdos
 
 from .code_to_table import code_to_table, all_possible_codons
 from .dna_and_rna import rna_to_dna
-from .Error import InvalidCodonException
+from .error import InvalidCodonException
 from .genetic_code import three_letters_to_one_letter
 
 
@@ -27,6 +27,4 @@ def translate(codon, translation_table=1, one_letter=False):
     amino_acid = code['codons'][codon]
     if one_letter:
         return three_letters_to_one_letter()[amino_acid]
-    else:
-        return amino_acid
-
+    return amino_acid

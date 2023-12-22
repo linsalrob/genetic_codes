@@ -2,7 +2,6 @@
 Parse the NCBI Table that is, by default in codes/ncbi_tables.txt and create a json object
 """
 import json
-import os
 import sys
 import argparse
 import re
@@ -21,10 +20,10 @@ if __name__ == "__main__":
     trans_table = None
     data = {}
     initiators = None
-    codons = None
-    with open(args.f, 'r') as f:
+    codons = {}
+    with open(args.f, 'r', encoding='utf-8') as f:
         for l in f:
-            if (l.startswith('#')):
+            if l.startswith('#'):
                 continue
             l = l.strip()
             if not l:
@@ -44,7 +43,7 @@ if __name__ == "__main__":
                     i += 2
                     if codon in codons:
                         print(
-                            f"For the codon {codon} in trans table {trans_table} we already had {codons[codon]} but now "
+                            f"For {codon} in trans table {trans_table} we already had {codons[codon]} but now "
                             f"we found {p[i]}", file=sys.stderr)
                     codons[codon] = p[i]
                     i += 1
