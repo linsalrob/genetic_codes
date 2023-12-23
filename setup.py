@@ -75,6 +75,9 @@ def main():
         license='The MIT License (MIT)',
         url='https://github.com/linsalrob/genetic_codes',
         packages=find_packages(),
+        entry_points={
+            "console_scripts": ["pygenetic_code = pygenetic_code.cli:run"]
+        },
         include_package_data=True,
         classifiers=CLASSIFIERS,
     )
