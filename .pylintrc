@@ -152,7 +152,7 @@ class-attribute-naming-style=any
 # Naming style matching correct class constant names.
 # class-const-naming-style=UPPER_CASE
 disable=
-	C0103 # uppercase naming style
+	C0103, # uppercase naming style
 	W0108 # unnecessary-lambda - in this case the lambda's are required
 
 # Regular expression matching correct class constant names. Overrides class-
