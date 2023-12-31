@@ -6,6 +6,7 @@ import argparse
 import sys
 
 from pygenetic_code import genetic_codes, all_possible_codons
+from pygenetic_code.genetic_code import three_letters_to_one_letter
 
 
 def print_json():
@@ -94,12 +95,45 @@ def print_difference_to_code_one():
                 print(f"\t{codes[tt]['codons'][cd]}", end="")
         print()
 
+def print_table():
+    """
+    Print a look up table for all the genetic codes as a C-style list of lists, and then print a look up table
+    for the codons
+    :return: None
+    """
+
+    codes = genetic_codes()
+    all_codons = sorted(all_possible_codons())
+    tto = three_letters_to_one_letter()
+
+    print("{")
+    for tt in range(32):
+        print("{", end="")
+        if str(tt) in codes:
+            for i, codon in enumerate(all_codons):
+                aa = tto[codes[str(tt)]['codons'][codon]]
+                print(f"'{aa}'", end="")
+                if i < len(all_codons) - 1:
+                    print(", ", end="")
+            print("}, // genetic code " + f"{tt}")
+        else:
+            print("},")
+    print("}\n")
+    
+
+
+
+
+
+
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Print the genetic codes')
     parser.add_argument('-j', help='print as json', action='store_true')
     parser.add_argument('-d', help='print difference from translation table 1', action='store_true')
     parser.add_argument('-x', help='print difference from the most common codon usage', action='store_true')
+    parser.add_argument('-t', help='print a table', action='store_true')
     parser.add_argument('-v', help='verbose output', action='store_true')
     args = parser.parse_args()
 
@@ -109,3 +143,5 @@ if __name__ == "__main__":
         print_difference_to_code_one()
     if args.x:
         print_difference_to_maximum()
+    if args.t:
+        print_table()
