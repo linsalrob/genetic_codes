@@ -4,7 +4,7 @@ Setup.py for installing and building
 
 import os
 from setuptools import setup, find_packages
-
+from distutils.core import Extension
 
 def get_version():
     """
@@ -75,6 +75,7 @@ def main():
         license='The MIT License (MIT)',
         url='https://github.com/linsalrob/genetic_codes',
         packages=find_packages(),
+        ext_modules=[Extension("translations", sources=["src/repeatFinder.cpp"], language='c++')],
         entry_points={
             "console_scripts": ["pygenetic_code = pygenetic_code.cli:run"]
         },
