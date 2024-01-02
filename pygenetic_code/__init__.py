@@ -6,14 +6,14 @@ Access to genetic translation tables and codon translations for different geneti
 
 from .genetic_code import genetic_codes, all_possible_codons
 from .code_to_table import code_to_table, codons_to_translation_tables
-from .translations import translate
+from .translations import translate_codon, six_frame_translation
 from .dna_and_rna import dna_to_rna, rna_to_dna
 from .version import __version__
 
 __all__ = [
     'genetic_codes', 'all_possible_codons',
     'code_to_table', 'codons_to_translation_tables',
-    'translate',
+    'translate_codon', 'six_frame_translation',
     'dna_to_rna', 'rna_to_dna',
     '__version__'
     ]
