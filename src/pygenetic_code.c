@@ -20,6 +20,18 @@ static PyObject * translate(PyObject *self, PyObject *args) {
         return NULL;
     }
 
+    // invalid codon tables: 0, 7, 8, 17, 18, 19, 20,  > 31
+    if (translation_table < 0 || translation_table > 31 ||
+        translation_table == 7 || translation_table == 8 ||
+        (translation_table > 16 && translation_table < 21)) {
+        char * errmsg = malloc(100*sizeof(char));
+        memset(errmsg, 0, 100*sizeof(char));
+        sprintf(errmsg, "Translation table %d is not valid. It can not be <0, 7, 8, 17-20, or >31", translation_table);
+        fprintf(stderr, "%s%s%s\n", RED, errmsg, ENDC);
+        PyErr_SetString(PyExc_ValueError, errmsg);
+        return NULL;
+    }
+
     translate_t *sequence = malloc(sizeof (translate_t));
     if (!sequence)
             error_and_exit("Unable to allocate memory for the sequence struct object\n");
