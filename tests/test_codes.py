@@ -1,7 +1,7 @@
 """
 Test the genetic codes
 """
-from pygenetic_code import genetic_codes
+from pygenetic_code import genetic_codes, translation_tables
 
 codes = genetic_codes()
 
@@ -17,10 +17,21 @@ def test_each_code():
     Make sure each code has 64 codons
     :return: None
     """
-    for i in [1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14, 15, 16, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]:
+    for i in translation_tables():
         assert len(codes[str(i)]['codons']) == 64
+
+
+def test_translation_tables():
+    """
+    Test the translation tables and make sure we have the right number
+    :return: None
+    """
+
+    tt = translation_tables()
+    assert len(tt) == 25
 
 
 if __name__ == '__main__':
     test_codes()
     test_each_code()
+    test_translation_tables()

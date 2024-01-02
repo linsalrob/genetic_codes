@@ -625,3 +625,12 @@ def three_letters_to_one_letter():
         "Thr" : "T", "Trp" : "W", "Tyr" : "Y", "Val" : "V",
         "Ter" : "*"
     }
+
+def translation_tables():
+    """
+    Get a list of the valid translation tables
+    :return: a list of translation tables
+    """
+
+    codes = genetic_codes()
+    return list(codes.keys())
