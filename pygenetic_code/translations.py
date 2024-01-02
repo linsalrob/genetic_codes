@@ -2,11 +2,12 @@
 Translation specific methdos
 """
 
+import PyGeneticCode
 from .code_to_table import code_to_table, all_possible_codons
 from .dna_and_rna import rna_to_dna
 from .error import InvalidCodonException
 from .genetic_code import three_letters_to_one_letter
-import PyGeneticCode
+
 
 
 def translate_codon(codon, translation_table=1, one_letter=False):
@@ -31,7 +32,7 @@ def translate_codon(codon, translation_table=1, one_letter=False):
     return amino_acid
 
 
-def six_frame_translation(seq, translation_table=11):
+def six_frame_translation(dna_sequence, translation_table=11, verbose=False):
     """
     Translate this sequence in all six frames and return a dictionary of sequences
     :param seq: the sequence to translate
@@ -39,7 +40,10 @@ def six_frame_translation(seq, translation_table=11):
     :return: a dictionary of key=seqname value=protein sequences
     """
 
-    return PyGeneticCode.translate(translation_table, seq)
+    verboseInt = 0
+    if verbose:
+        verboseInt = 1
+    return PyGeneticCode.translate(dna_sequence, translation_table, verboseInt)
 
 
 if __name__ == '__main__':

@@ -13,12 +13,12 @@ static PyObject * translate(PyObject *self, PyObject *args) {
 
     const char * seq;
     int translation_table;
+    int verbose = 0;
     Py_ssize_t seqlen;
-    if (!PyArg_ParseTuple(args, "is#", &translation_table, &seq, &seqlen)) {
+    if (!PyArg_ParseTuple(args, "s#i|i", &seq, &seqlen, &translation_table, &verbose)) {
         PyErr_SetString(PyExc_RuntimeError, "Could not parse the arguments to translate");
         return NULL;
     }
-    fprintf(stderr, "%sReceived sequence of length%d%s\n", BLUE, (int) seqlen, ENDC);
 
     translate_t *sequence = malloc(sizeof (translate_t));
     if (!sequence)
@@ -31,7 +31,7 @@ static PyObject * translate(PyObject *self, PyObject *args) {
     strcpy(sequence->dnaseq, seq);
     sequence->dnaseq[seqlen+1] = '\0';
     sequence->name = "translated_sequence";
-
+    sequence->verbose = (bool) verbose;
     sequence->len = (int) seqlen;
     sequence->translation_table = translation_table;
     // these initiate variables set below

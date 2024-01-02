@@ -22,10 +22,11 @@ def test_translate_sequence():
     :return:
     """
     seq = 'ATCGATCGTCAGCATGCATCGCATCGAGCTCGTACGATCGACTAGCTACGCTACGTACGACTACGCTAGCATCGATCAGCATCACTATCGCTAGCTACGATCTA'
-    print(f"Translating: {seq}")
-    d = six_frame_translation(seq)
-    for k in d:
-        print(f">{k}\n{d[k]}")
+    d = six_frame_translation(seq, 11, False)
+    assert len(list(d.keys())) == 21
+    assert d['translated_sequence frame +2 2 94'] == 'SIVSMHRIELVRSTSYATYDYASIDQHHYR*'
+    assert d['translated_sequence frame +3 3 105'] == 'RSSACIASSSYDRLATLRTTTLASISITIASYDL'
+    assert d['translated_sequence frame -2 11 105'] == 'LAIVMLIDASVVVRSVASRSYELDAMHADDR'
 
 if __name__ == "__main__":
     test_translation()
