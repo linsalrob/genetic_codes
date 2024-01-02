@@ -22,11 +22,9 @@ def stream_fasta(fastafile, whole_id=True):
         if fastafile.endswith('.gz'):
             f = gzip.open(fastafile, 'rt')
         else:
-            f = open(fastafile, 'r')
+            f = open(fastafile, 'r', encoding='utf-8')
     except IOError as e:
-        sys.stderr.write(str(e) + "\n")
-        sys.stderr.write("Message: \n" + str(e.message) + "\n")
-        sys.exit("Unable to open file " + fastafile)
+        print(f"There was an IO Error: {e}", file=sys.stderr)
 
     while f:
         # first line should start with >
@@ -34,7 +32,7 @@ def stream_fasta(fastafile, whole_id=True):
         if not idline:
             break
         if not idline.startswith('>'):
-            sys.exit("Do not have a fasta file at: {}".format(idline))
+            sys.exit(f"Do not have a fasta file at: {idline}")
         if not whole_id:
             idline = idline.split(" ")[0]
         idline = idline.strip().replace('>', '', 1)

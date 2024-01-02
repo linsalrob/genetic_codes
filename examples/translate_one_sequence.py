@@ -16,6 +16,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     for seqid, dna_sequence in stream_fasta(args.f):
-        translations = PyGeneticCode.translate(dna_sequence, args.t)
-        for name in translations:
-            print(f">{name}\n{translations[name]}")
+        try:
+            translations = PyGeneticCode.translate(dna_sequence, args.t)
+            for name in translations:
+                print(f">{name}\n{translations[name]}")
+        except ValueError as e:
+            print("Incorrect parameter passed to the code: ")
+            print(e)
