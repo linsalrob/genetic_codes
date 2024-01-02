@@ -4,5 +4,31 @@ build-backend = "scikit_build_core.build"
 
 [project]
 name = "pygenetic_code"
-dynamic = ["version"]
+version = "0.14"
+authors = [
+  {name = "Rob Edwards", email = "raedwards@gmail.com"}
+]
+maintainers = [
+  {name = "Rob Edwards", email = "raedwards@gmail.com"}
+]
+
+description = "Translate DNA sequences to protein sequences using different genetic codes and translation tables"
+readme = "README.md"
+repository = "https://github.com/linsalrob/genetic_codes/"
+classifiers =  = [
+    "Environment :: Console",
+    "Environment :: MacOS X",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: C",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+
+[project.scripts]
+pygenetic_code = "pygenetic_code.cli:run"
 
