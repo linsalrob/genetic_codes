@@ -15,7 +15,7 @@ maintainers = [
 description = "Translate DNA sequences to protein sequences using different genetic codes and translation tables"
 readme = "README.md"
 repository = "https://github.com/linsalrob/genetic_codes/"
-classifiers =  = [
+classifiers =  [
     "Environment :: Console",
     "Environment :: MacOS X",
     "Intended Audience :: Science/Research",
