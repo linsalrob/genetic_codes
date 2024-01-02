@@ -7,7 +7,7 @@
 
 # Genetic Codes
 
-A pure Python library with no imports for working with the NCBI Genetic Codes
+A pure Python library with no imports for translating DNA sequences into protein sequences using different translation tables (aka genetic codes).
 
 The [NCBI Genetic Codes](https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi?chapter=tgencodes#SG1) are central to working with alternate genetic codes. This Python tool kit includes a library that exposes the genetic codes so you can query a codon and get its variants or query a code and get its table.
 
@@ -21,9 +21,59 @@ pip install pygenetic_code
 pygenetic_code --version
 ```
 
-Conda installation is coming.
+A conda installation is coming.
 
 # Usage
+
+## Translating sequences
+
+We have some example applications that show you how to translate DNA sequences in all six reading frames.
+
+First, make sure you have a DNA sequence. We provide a few in [tests/](tests/) including [a very short sequence](tests/seq.fasta), [crAssphage](tests/JQ995537.fna), and [E. coli])(tests/U00096.3.fna.gz). 
+
+Then, you can use the example code to translate that sequence using the bacterial genetic code (translation table 11):
+
+```bash
+python examples/translate_one_sequence.py -f tests/JQ995537.fna -t 11
+```
+
+or an alternate genetic code (translation table 15):
+
+```bash
+python examples/translate_one_sequence.py -f tests/JQ995537.fna -t 15
+```
+
+You can look at the effect of translation tables on the same sequences by running 
+
+```bash
+python examples/average_translation_length.py -f tests/JQ995537.fna
+```
+
+## Library
+
+### Translating sequences
+You can import the C library by importing PyGeneticCode. This library currently has a single function:
+
+```python
+PyGeneticCode.translate(DNA\_sequence, translation\_table, verbose)
+```
+
+(See [examples/translate_one_sequence.py](examples/translate_one_sequence.py) for an example invocation.)
+
+The DNA sequence is the DNA sequence you want to translate. The translation table must be one of the valid translation tables (see [pygenetic_code/genetic_code.translation_tables](pygenetic_code/genetic_code.translation_tables) for the valid tables).
+
+### Translate a codon
+
+Another way to access the code in your python application is to access the `translate_codon()` function, that has this signature:
+
+```python
+amino_acid = translate_codon(codon, translation_table=1, one_letter=False)
+```
+
+The `codon` is the codon that you want to translate as either an RNA (e.g. `AUG`) or DNA (e.g. `ATG`) sequence. The `translation_table` is your required translation table (see the [NCBI website](https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi?chapter=tgencodes#SG1) for valid tables), and `one_letter` is whether to return a three letter amino acid code (e.g. `Met` or `Ter`) or a one letter amino acid code (e.g. `M` or `*`).
+
+The library provides other ways to access the genetic codes, and those are exemplified in the `pytest` files in [tests/](tests)
+
 
 ## Standalone
 
@@ -32,21 +82,7 @@ You can just print translation tables using the `pygenetic_code` command. There 
    - `json` prints the table in machine readable json format.
    - `difference` prints a `.tsv` file with the the difference from the standard (translation table 1) code
    - `maxdifference` prints a `.tsv` file with the difference from the most common amino acid. The main difference is that `TGA` is more frequently tryptophan than a stop.
-
-
-## Library
-
-In your python application you want to access the `translate()` function, that has this signature:
-
-```python
-amino_acid = translate(codon, translation_table=1, one_letter=False)
-```
-
-The `codon` is the codon that you want to translate as either an RNA (e.g. `AUG`) or DNA (e.g. `ATG`) sequence. The `translation_table` is your required translation table (see the [NCBI website](https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi?chapter=tgencodes#SG1) for valid tables), and `one_letter` is whether to return a three letter amino acid code (e.g. `Met` or `Ter`) or a one letter amino acid code (e.g. `M` or `*`).
-
-The library provides other ways to access the genetic codes, and those are exemplified in the `pytest` files in [tests/](tests)
-
-
+   - 
 # Citing
 
 Please cite this repository as:
