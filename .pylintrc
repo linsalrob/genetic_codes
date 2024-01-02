@@ -154,7 +154,8 @@ class-attribute-naming-style=any
 disable=
 	C0103, # uppercase naming style
 	W0108, # unnecessary-lambda - in this case the lambda's are required
-	E0401  # import-error because PyGeneticCode is made by this code :)
+	E0401, # import-error because PyGeneticCode is made by this code :)
+	R1732  # with open. You can do with gzip or regular open
 
 # Regular expression matching correct class constant names. Overrides class-
 # const-naming-style. If left empty, class constant names will be checked with
