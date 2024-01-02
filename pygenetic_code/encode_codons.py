@@ -7,8 +7,6 @@ G: 10
 T: 11
 """
 
-import os
-import sys
 import argparse
 
 __author__ = 'Rob Edwards'
@@ -17,6 +15,10 @@ from pygenetic_code import all_possible_codons
 
 
 def encode_codons():
+    """
+    A simple routine to print out some codons encoded in two bit binary format
+    :return: None
+    """
     codons = sorted(all_possible_codons())
     code = {'A': "00", "C": "01", "G": "10", "T": "11"}
     for c in codons:

@@ -594,6 +594,7 @@ def genetic_codes():
         '''
     )
 
+
 def all_possible_codons():
     """
     ALl 64 codons in order. This is just a simplified function to ensure we
@@ -611,6 +612,7 @@ def all_possible_codons():
         'TGA', 'TGC', 'TGG', 'TGT', 'TTA', 'TTC', 'TTG', 'TTT'
     }
 
+
 def three_letters_to_one_letter():
     """
     By default we use three letter amino acid encoding, just because.
@@ -618,10 +620,20 @@ def three_letters_to_one_letter():
     :return: a dict of amino acid codes
     """
     return {
-        "Ala" : "A", "Arg" : "R", "Asn" : "N", "Asp" : "D",
-        "Cys" : "C", "Gln" : "Q", "Glu" : "E", "Gly" : "G",
-        "His" : "H", "Ile" : "I", "Leu" : "L", "Lys" : "K",
-        "Met" : "M", "Phe" : "F", "Pro" : "P", "Ser" : "S",
-        "Thr" : "T", "Trp" : "W", "Tyr" : "Y", "Val" : "V",
-        "Ter" : "*"
+        "Ala": "A", "Arg": "R", "Asn": "N", "Asp": "D",
+        "Cys": "C", "Gln": "Q", "Glu": "E", "Gly": "G",
+        "His": "H", "Ile": "I", "Leu": "L", "Lys": "K",
+        "Met": "M", "Phe": "F", "Pro": "P", "Ser": "S",
+        "Thr": "T", "Trp": "W", "Tyr": "Y", "Val": "V",
+        "Ter": "*"
     }
+
+
+def translation_tables():
+    """
+    Get a list of the valid translation tables
+    :return: a list of translation tables
+    """
+
+    codes = genetic_codes()
+    return list(codes.keys())

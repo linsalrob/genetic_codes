@@ -119,13 +119,6 @@ def print_table():
         else:
             print("},")
     print("}\n")
-    
-
-
-
-
-
-
 
 
 if __name__ == "__main__":
