@@ -3,8 +3,8 @@
 //
 
 
-#ifndef GENETIC_CODE_TRANSLATE_H
-#define GENETIC_CODE_TRANSLATE_H
+#ifndef CODONS_TRANSLATE_H
+#define CODONS_TRANSLATE_H
 
 // A struct to pass the information into the translate function
 typedef struct thread_arg_struct {
@@ -28,6 +28,8 @@ typedef struct translate_struct {
     long int len; // the DNA sequence length
     int translation_table; // the translation table to yse
     bool verbose; // more output
+    size_t orf_name_sz; // how much size have we allocated for the ORF names
+    size_t orf_sz; // how much space have we allocated for the ORFs
     char **orfs; // an array of all the ORFs
     char **orf_names; // an array of all the names for the ORFs
     int num_orfs; // how many orfs did we find?
@@ -81,4 +83,4 @@ static char CODONS[32][64] = {
 
 
 
-#endif //GENETIC_CODE_TRANSLATE_H
+#endif //CODONS_TRANSLATE_H

@@ -48,24 +48,29 @@ static PyObject * translate(PyObject *self, PyObject *args) {
     sequence->translation_table = translation_table;
     // these initiate variables set below
     sequence->num_orfs = 0;
-    sequence->orfs = malloc(seqlen * 2 * sizeof (char)); // translation is x2 for fwd/rev, x3 for each frame, but /3 for amino acidds
+    sequence->orf_sz = seqlen * 3;
+    sequence->orfs = malloc(sequence->orf_sz); // translation is x2 for fwd/rev, x3 for each frame, but /3 for amino acidds
     if (!sequence->orfs)
-            error_and_exit("Unable to allocate memory for the sequence ORFs\n");
+        error_and_exit("Unable to allocate memory for the sequence ORFs\n");
+    memset(sequence->orfs, 0, sequence->orf_sz);
 
-    // the sequence name is "seq_name frame +x start stop"
-    // assuming sequence length less than 1e9 (10 characters each for start/stop), we need 20 + seq_name + 7 for " frame " + 2 for [+/-]x + 2 spaces
-    // * the number of ORFs we find. Assuming most orfs are 1 per kb of the sequence should be about seqlen /300
-    int seqnamesize = ((50 * (seqlen/10)) * sizeof (char));
-
-    sequence->orf_names = malloc(seqnamesize); // somewhat randomly allocate the same size of the memory as above
-
+    // We allocate a MB for the ORF names, but then if we need more we realloc it dynamically, later.
+    // We remember the size so we know when to realloc
+    sequence->orf_name_sz = 1000000;
+    sequence->orf_names = malloc(sequence->orf_name_sz); // somewhat randomly allocate the same size of the memory as above
     if (!sequence->orf_names)
             error_and_exit( "Unable to allocate memory for the sequence ORF names\n");
+    memset(sequence->orf_names, 0, sequence->orf_name_sz);
 
     parallel_translate(sequence);
 
+    if (verbose)
+        fprintf(stderr, "%sSuccessfully translated the sequences. Converting to dictionaries%s\n", GREEN, ENDC);
+
     PyObject *data = PyDict_New();
     for (int i=0; i<sequence->num_orfs; i++) {
+        if (verbose)
+            fprintf(stderr, "\t%sAdding key: %s sequence %s%s\n", PINK, sequence->orf_names[i], sequence->orfs[i], ENDC);
       PyDict_SetItem(data, Py_BuildValue("s", sequence->orf_names[i]), Py_BuildValue("s", sequence->orfs[i]));
     }
     return data;
