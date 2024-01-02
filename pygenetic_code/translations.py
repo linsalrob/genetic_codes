@@ -43,7 +43,8 @@ def six_frame_translation(dna_sequence, translation_table=11, verbose=False):
     verboseInt = 0
     if verbose:
         verboseInt = 1
-    return PyGeneticCode.translate(dna_sequence, translation_table, verboseInt)
+
+    return PyGeneticCode.translate(dna_sequence, int(translation_table), verboseInt)
 
 
 if __name__ == '__main__':
