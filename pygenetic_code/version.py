@@ -9,5 +9,5 @@ __version__ = "0.0.0 (probably not installed from pip?)"
 vfile = os.path.join(os.path.dirname(os.path.realpath(__file__)), "_version.py")
 
 if os.path.exists(vfile):
-    with open(vfile, "r") as vf:
+    with open(vfile, "r", encoding='utf-8') as vf:
         __version__ = vf.read().strip()
