@@ -1,6 +1,8 @@
 """
 Test the translation functions
 """
+
+import PyGeneticCode
 from pygenetic_code.translations import translate_codon, six_frame_translation
 
 
@@ -28,6 +30,18 @@ def test_translate_sequence():
     assert d['translated_sequence frame +3 3 105'] == 'RSSACIASSSYDRLATLRTTTLASISITIASYDL'
     assert d['translated_sequence frame -2 11 105'] == 'LAIVMLIDASVVVRSVASRSYELDAMHADDR'
 
+
+def test_translate_one_frame():
+    """
+    Translate a single frome of a sequence
+    :return:  None
+    """
+
+    seq = 'ATCGATCGTCAGCATGCATCGCATCGAGCTCGTACGATCGACTAGCTACGCTACGTACGACTACGCTAGCATCGATCAGCATCACTATCGCTAGCTACGATCTA'
+    prot = PyGeneticCode.translate_one_frame(seq, 11, 1)
+    assert prot == "IDRQHASHRARTID*LRYVRLR*HRSASLSLATI"
+
 if __name__ == "__main__":
     test_translation()
     test_translate_sequence()
+    test_translate_one_frame()

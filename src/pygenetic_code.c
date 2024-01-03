@@ -6,6 +6,41 @@
 #include "translate.h"
 #include "colours.h"
 
+static PyObject * translate_one_frame(PyObject *self, PyObject *args) {
+    /*
+    * translate this sequence in its current frame and return the sequence
+    * translate_one_frame(dna_sequence, translation_table, more_output)
+    */
+
+    const char * seq;
+    int translation_table;
+    int verbose = 0;
+    Py_ssize_t seqlen;
+    if (!PyArg_ParseTuple(args, "s#i|i", &seq, &seqlen, &translation_table, &verbose)) {
+        PyErr_SetString(PyExc_RuntimeError, "Could not parse the arguments to translate");
+        return NULL;
+    }
+        // invalid codon tables: 0, 7, 8, 17, 18, 19, 20,  > 31
+    if (translation_table < 0 || translation_table > 31 ||
+        translation_table == 7 || translation_table == 8 ||
+        (translation_table > 16 && translation_table < 21)) {
+        char * errmsg = malloc(100*sizeof(char));
+        memset(errmsg, 0, 100*sizeof(char));
+        sprintf(errmsg, "Translation table %d is not valid. It can not be <0, 7, 8, 17-20, or >31", translation_table);
+        fprintf(stderr, "%s%s%s\n", RED, errmsg, ENDC);
+        PyErr_SetString(PyExc_ValueError, errmsg);
+        return NULL;
+    }
+
+    unsigned char * enc = malloc(seqlen * sizeof (unsigned char));
+    memset(enc, 0, seqlen * sizeof (unsigned char));
+    encode_sequence(seq, enc);
+    char * protein = malloc((seqlen/3) + 1 * sizeof *protein);
+    memset(protein, 0, (seqlen/3) + 1 * sizeof *protein);
+    translate_one_sequence(enc, seqlen, translation_table, protein);
+    return Py_BuildValue("s", protein);
+}
+
 static PyObject * translate(PyObject *self, PyObject *args) {
     /*
     * translate a sequence given in args using translation table and return all orfs
@@ -81,6 +116,7 @@ static PyObject * translate(PyObject *self, PyObject *args) {
 
 static PyMethodDef PyGeneticCodeMethods[] = {
     {"translate",  translate, METH_VARARGS, "Translate a DNA sequence in all 6 frames"},
+    {"translate_one_frame", translate_one_frame, METH_VARARGS, "Translate a DNA sequence in frame"},
     {NULL, NULL, 0, NULL}        /* Sentinel */
 };
 
