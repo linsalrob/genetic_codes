@@ -43,10 +43,21 @@ or an alternate genetic code (translation table 15):
 python examples/translate_one_sequence.py -f tests/JQ995537.fna -t 15
 ```
 
-You can look at the effect of translation tables on the same sequences by running 
+I have also included the _E. coli_ K-12 sequence, and so you can identify all the ORFs in that genome:
 
 ```bash
-python examples/average_translation_length.py -f tests/JQ995537.fna
+python examples/translate_one_sequence.py -f tests/U00096.3.fna.gz -t 11
+```
+
+(yes, you can use gzip files without decompressing them). 
+
+This will take about 0.1 seconds to do the actual translation, but starting python and all the other overheads make it almost 3/4 second to run.
+
+You can also look at the effect of translation tables on the same sequences by running 
+
+```bash
+python examples/average_translation_length.py -f tests/JQ995537.fna # for crassphage
+python examples/average_translation_length.py -f tests/U00096.3.fna.gz # for E. coli K-12
 ```
 
 ## Library
