@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.15...3.26)
-project(${SKBUILD_PROJECT_NAME} LANGUAGES C)
+project(${SKBUILD_PROJECT_NAME} LANGUAGES C VERSION ${SKBUILD_PROJECT_VERSION})
 
 find_package(
   Python

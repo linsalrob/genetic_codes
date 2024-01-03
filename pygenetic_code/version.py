@@ -2,9 +2,12 @@
 Get the version number for the scripts
 """
 
-import pkg_resources
+import os
 
-try:
-    __version__ = pkg_resources.get_distribution('pygenetic_code').version
-except pkg_resources.DistributionNotFound as e:
-    __version__ = 'unknown'
+__version__ = "0.0.0 (probably not installed from pip?)"
+
+vfile = os.path.join(os.path.dirname(os.path.realpath(__file__)), "_version.py")
+
+if os.path.exists(vfile):
+    with open(vfile, "r", encoding='utf-8') as vf:
+        __version__ = vf.read().strip()

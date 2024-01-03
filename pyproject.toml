@@ -4,7 +4,7 @@ build-backend = "scikit_build_core.build"
 
 [project]
 name = "pygenetic_code"
-version = "0.14"
+version = "0.15.2"
 authors = [
   {name = "Rob Edwards", email = "raedwards@gmail.com"}
 ]
@@ -32,3 +32,8 @@ classifiers =  [
 [project.scripts]
 pygenetic_code = "pygenetic_code.cli:run"
 
+[[tool.scikit-build.generate]]
+path = "pygenetic_code/_version.py"
+template = '''
+version = "${version}"
+'''
