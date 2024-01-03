@@ -32,11 +32,12 @@ def translate_codon(codon, translation_table=1, one_letter=False):
     return amino_acid
 
 
-def six_frame_translation(dna_sequence, translation_table=11, verbose=False):
+def six_frame_translation(dna_sequence, translation_table=11, num_threads=8, verbose=False):
     """
     Translate this sequence in all six frames and return a dictionary of sequences
     :param seq: the sequence to translate
     :param translation_table: the translation table to use (default=11)
+    :param num_threads: the number of threads to use for the encoding
     :return: a dictionary of key=seqname value=protein sequences
     """
 
@@ -44,7 +45,7 @@ def six_frame_translation(dna_sequence, translation_table=11, verbose=False):
     if verbose:
         verboseInt = 1
 
-    return PyGeneticCode.translate(dna_sequence, int(translation_table), verboseInt)
+    return PyGeneticCode.translate(dna_sequence, int(translation_table), num_threads, verboseInt)
 
 
 if __name__ == '__main__':

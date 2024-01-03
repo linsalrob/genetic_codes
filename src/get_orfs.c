@@ -26,9 +26,10 @@ KSEQ_INIT(gzFile, gzread);
 
 void help() {
     printf("USAGE: get_orfs\n");
-    printf("-t --translation_table <translation table (default=11)\n");
+    printf("-t --translation_table translation table (default=11)\n");
     printf("-f --fasta fasta file\n");
     printf("-l --length minimum length (default=1 amino acid)\n");
+    printf("-j --jobs number of parallel threads to use. We use 6 for the translation regardless of -j (default=8)\n");
     printf("-d --debug print debugging help");
     printf("-v --version print the version and exit\n");
 }
@@ -56,17 +57,19 @@ int main(int argc, char* argv[]) {
     opt->translation_table = 11;
     opt->debug = false;
     opt->minlen = 1;
+    opt->num_threads = 8;
 
     static struct option long_options[] = {
             {"fasta", required_argument, 0, 'f'},
             {"translation_table", required_argument, 0, 't'},
             {"length", required_argument, 0, 'l'},
+            {"jobs", required_argument, 0, 'j'},
             {"debug", no_argument, 0, 'd'},
             { 0, 0, 0, 0 }
     };
     int option_index = 0;
     int gopt;
-    while ((gopt = getopt_long(argc, argv, "f:t:l:d", long_options, &option_index)) != -1) {
+    while ((gopt = getopt_long(argc, argv, "f:t:l:j:d", long_options, &option_index)) != -1) {
         switch (gopt) {
             case 'f' :
                 opt->fasta_file = strdup(optarg);
@@ -76,6 +79,9 @@ int main(int argc, char* argv[]) {
                 break;
             case 'l':
                 opt->minlen = atoi(optarg);
+                break;
+            case 'j':
+                opt->num_threads = atoi(optarg);
                 break;
             case 'd':
                 opt->debug = true;
@@ -130,26 +136,26 @@ int main(int argc, char* argv[]) {
         sequence->translation_table = opt->translation_table;
         sequence->verbose = opt->debug;
         sequence->num_orfs = 0;
-        sequence->orfs = malloc(seq->seq.l * 3 * sizeof (char)); // translation is x2 for fwd/rev, x3 for each frame, but /3 for amino acidds
+        sequence->num_threads = opt->num_threads;
+
+        // we initiate the ORFs to be 3x the sequence. They should actually be 1/3 the sequence (for codons)
+        // x 6x the sequence for reading frames, but this allows a bit more.
+        // We remember the size so we know when to realloc
+        sequence->orf_sz = seq->seq.l * 3;
+        sequence->orfs = malloc(sequence->orf_sz); // translation is x2 for fwd/rev, x3 for each frame, but /3 for amino acidds
         if (!sequence->orfs)
             error_and_exit("Unable to allocate memory for the sequence ORFs\n");
+        memset(sequence->orfs, 0, sequence->orf_sz);
 
 
-        // Here I tried to dynamically figure out how much memory we might need, but I gave up and just set it to a million
-        // THere are definitely better ways to do this.
-        // the sequence name is "seq_name frame +x start stop"
-        // assuming sequence length less than 1e9 (10 characters each for start/stop), we need 20 + seq_name + 7 for " frame " + 2 for [+/-]x + 2 spaces
-        // * the number of ORFs we find. Assuming most orfs are 1 per kb of the sequence should be about seqlen /300
-        //int seqnamesize = ((31 + strlen(seq->name.s)) * (seq->seq.l/10)) * sizeof (char);
-        size_t seqnamesize = 1000000;
-
-        if (opt->debug)
-            fprintf(stderr, "%sWARN: Estimated we might need %ld bytes for ORF names%s\n", YELLOW, seqnamesize, ENDC);
-        sequence->orf_names = malloc(seqnamesize); // somewhat randomly allocate the same size of the memory as above
+        // We allocate a MB for the ORF names, but then if we need more we realloc it dynamically, later.
+        // We remember the size so we know when to realloc
+        sequence->orf_name_sz = 1000000;
+        sequence->orf_names = malloc(sequence->orf_name_sz); // somewhat randomly allocate the same size of the memory as above
+        memset(sequence->orf_names, 0, sequence->orf_name_sz);
 
         if (!sequence->orf_names)
             error_and_exit("Unable to allocate memory for the sequence ORF names\n");
-
 
         parallel_translate(sequence);
 
