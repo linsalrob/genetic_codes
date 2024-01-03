@@ -34,19 +34,19 @@ First, make sure you have a DNA sequence. We provide a few in [tests/](tests/) i
 Then, you can use the example code to translate that sequence using the bacterial genetic code (translation table 11):
 
 ```bash
-python examples/translate_one_sequence.py -f tests/JQ995537.fna -t 11
+python examples/translate_sequence_in_all_frames.py -f tests/JQ995537.fna -t 11
 ```
 
 or an alternate genetic code (translation table 15):
 
 ```bash
-python examples/translate_one_sequence.py -f tests/JQ995537.fna -t 15
+python examples/translate_sequence_in_all_frames.py -f tests/JQ995537.fna -t 15
 ```
 
 I have also included the _E. coli_ K-12 sequence, and so you can identify all the ORFs in that genome:
 
 ```bash
-python examples/translate_one_sequence.py -f tests/U00096.3.fna.gz -t 11
+python examples/translate_sequence_in_all_frames.py -f tests/U00096.3.fna.gz -t 11
 ```
 
 (yes, you can use gzip files without decompressing them). 
@@ -63,13 +63,25 @@ python examples/average_translation_length.py -f tests/U00096.3.fna.gz # for E. 
 ## Library
 
 ### Translating sequences
-You can import the C library by importing PyGeneticCode. This library currently has a single function:
+You can import the C library by importing PyGeneticCode. 
+
+There are two main methods that you can call:
+
+The first function just returns the translation of your DNA sequence in 5' -&gt; 3' format, so for example, this is the method you might use to translate an ORF.
+
+```python
+PyGeneticCode.translate_one_frame(DNA\_sequence, translation\_table, verbose)
+```
+
+(See [examples/translate_asequence.py](examples/translate_asequence.py_) for an example.
+
+The second method returns all the 6 frame translations.
 
 ```python
 PyGeneticCode.translate(DNA\_sequence, translation\_table, verbose)
 ```
 
-(See [examples/translate_one_sequence.py](examples/translate_one_sequence.py) for an example invocation.)
+(See [examples/translate_sequence_in_all_frames.py](examples/translate_sequence_in_all_frames.py) for an example invocation.)
 
 The DNA sequence is the DNA sequence you want to translate. The translation table must be one of the valid translation tables (see [pygenetic_code/genetic_code.translation_tables](pygenetic_code/genetic_code.translation_tables) for the valid tables).
 
