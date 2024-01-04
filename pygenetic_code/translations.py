@@ -31,6 +31,18 @@ def translate_codon(codon, translation_table=1, one_letter=False):
         return three_letters_to_one_letter()[amino_acid]
     return amino_acid
 
+def translate(dna_sequence, translation_table=11, verbose=False):
+    """
+    Translate one sequence as the provided reading frame. For example, given an ORF sequence return the protein
+    sequence
+    :param dna_sequence: the DNA sequence to translate
+    :param translation_table: the translation table to use
+    :param verbose: debugging output
+    :return: The protein sequence
+    """
+
+    verbose_int = 1 if verbose else 0
+    return PyGeneticCode.translate(dna_sequence, translation_table, verbose_int)
 
 def six_frame_translation(dna_sequence, translation_table=11, num_threads=8, verbose=False):
     """
@@ -45,7 +57,7 @@ def six_frame_translation(dna_sequence, translation_table=11, num_threads=8, ver
     if verbose:
         verboseInt = 1
 
-    return PyGeneticCode.translate(dna_sequence, int(translation_table), num_threads, verboseInt)
+    return PyGeneticCode.translate_six_frames(dna_sequence, int(translation_table), num_threads, verboseInt)
 
 
 if __name__ == '__main__':

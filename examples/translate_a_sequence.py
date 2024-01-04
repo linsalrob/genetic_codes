@@ -9,4 +9,4 @@ import PyGeneticCode
 
 if __name__ == "__main__":
     dnaseq="ATCGATCGTCAGCATGCATCGCATCGAGCTCGTACGATCGACTAGCTACGCTACGTACGACTACGCTAGCATCGATCAGCATCACTATCGCTAGCTACGATCTATAA"
-    print(f"DNA sequence: {dnaseq}\nProtein seq : {PyGeneticCode.translate_one_frame(dnaseq, 11)}")
+    print(f"DNA sequence: {dnaseq}\nProtein seq : {PyGeneticCode.translate(dnaseq, 11)}")

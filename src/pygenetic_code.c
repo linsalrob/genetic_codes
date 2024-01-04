@@ -6,7 +6,7 @@
 #include "translate.h"
 #include "colours.h"
 
-static PyObject * translate_one_frame(PyObject *self, PyObject *args) {
+static PyObject * translate(PyObject *self, PyObject *args) {
     /*
     * translate this sequence in its current frame and return the sequence
     * translate_one_frame(dna_sequence, translation_table, more_output)
@@ -34,14 +34,14 @@ static PyObject * translate_one_frame(PyObject *self, PyObject *args) {
 
     unsigned char * enc = malloc(seqlen * sizeof (unsigned char));
     memset(enc, 0, seqlen * sizeof (unsigned char));
-    encode_sequence(seq, enc);
+    parallel_encode_sequence(seq, enc, 8);
     char * protein = malloc((seqlen/3) + 1 * sizeof *protein);
     memset(protein, 0, (seqlen/3) + 1 * sizeof *protein);
     translate_one_sequence(enc, seqlen, translation_table, protein);
     return Py_BuildValue("s", protein);
 }
 
-static PyObject * translate(PyObject *self, PyObject *args) {
+static PyObject * translate_six_frames(PyObject *self, PyObject *args) {
     /*
     * translate a sequence given in args using translation table and return all orfs
     */
@@ -115,8 +115,8 @@ static PyObject * translate(PyObject *self, PyObject *args) {
 
 
 static PyMethodDef PyGeneticCodeMethods[] = {
-    {"translate",  translate, METH_VARARGS, "Translate a DNA sequence in all 6 frames"},
-    {"translate_one_frame", translate_one_frame, METH_VARARGS, "Translate a DNA sequence in frame"},
+    {"translate_six_frames",  translate_six_frames, METH_VARARGS, "Translate a DNA sequence in all 6 frames"},
+    {"translate", translate, METH_VARARGS, "Translate a DNA sequence in frame"},
     {NULL, NULL, 0, NULL}        /* Sentinel */
 };
 
