@@ -126,6 +126,7 @@ env/
 venv/
 venv_win/
 venv_linux/
+venv_*
 ENV/
 env.bak/
 venv.bak/
@@ -164,3 +165,4 @@ cython_debug/
 # compiled data
 bin/
 obj/
+
