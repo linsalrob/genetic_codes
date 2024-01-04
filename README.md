@@ -7,9 +7,9 @@
 
 # Genetic Codes
 
-A pure Python library with no imports for translating DNA sequences into protein sequences using different translation tables (aka genetic codes).
+A Python and C library with no external dependencies for translating DNA sequences into protein sequences using different translation tables (aka genetic codes).
 
-The [NCBI Genetic Codes](https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi?chapter=tgencodes#SG1) are central to working with alternate genetic codes. This Python tool kit includes a library that exposes the genetic codes so you can query a codon and get its variants or query a code and get its table.
+The [NCBI Genetic Codes](https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi?chapter=tgencodes#SG1) are central to working with alternate genetic codes. This Python tool kit includes a library that exposes the genetic codes so you can query a codon and get its variants or query a code and get its table. We also provide fast mechanisms to translate DNA sequences into protein sequences using the translation table of your choice.
 
 
 # Installation
@@ -21,17 +21,29 @@ pip install pygenetic_code
 pygenetic_code --version
 ```
 
-A conda installation is coming.
+A conda installation is in the works!
 
 # Usage
 
-## Translating sequences
+There is a command line application, Python example code, and a library that you can use. The command line application and examples show you how to use the library.
 
-We have some example applications that show you how to translate DNA sequences in all six reading frames.
+## Example code
 
-First, make sure you have a DNA sequence. We provide a few in [tests/](tests/) including [a very short sequence](tests/seq.fasta), [crAssphage](tests/JQ995537.fna), and [E. coli])(tests/U00096.3.fna.gz). 
+These examples show you how to incorporate `pygenetic_code` into your own Python code. 
 
-Then, you can use the example code to translate that sequence using the bacterial genetic code (translation table 11):
+We have a very simple translate function that you can use if you want to translate one (or more) ORFs. The signature is
+
+```python
+translate(dna_sequence, translation_table)
+```
+
+and we have a simple example that translates a sequence:
+
+```bash
+python examples/translate_a_sequence.py
+```
+
+We can also translate DNA sequences in all six reading frames, and here is an example that reads a fasta file and translates all six frames using the bacterial genetic code (translation table 11):
 
 ```bash
 python examples/translate_sequence_in_all_frames.py -f tests/JQ995537.fna -t 11
@@ -43,7 +55,7 @@ or an alternate genetic code (translation table 15):
 python examples/translate_sequence_in_all_frames.py -f tests/JQ995537.fna -t 15
 ```
 
-I have also included the _E. coli_ K-12 sequence, and so you can identify all the ORFs in that genome:
+Or you can translate the _E. coli_ K-12 sequence, and so you can identify all the ORFs in that genome:
 
 ```bash
 python examples/translate_sequence_in_all_frames.py -f tests/U00096.3.fna.gz -t 11
@@ -60,9 +72,32 @@ python examples/average_translation_length.py -f tests/JQ995537.fna # for crassp
 python examples/average_translation_length.py -f tests/U00096.3.fna.gz # for E. coli K-12
 ```
 
+We recommend using our easy Python wrappers to access the translate functions
+
+```python
+from pygenetic_code import translate, six_frame_translation
+```
+
+But you can also access our C library directly, using the `PyGeneticCode` module (see below)
+
+
+## Command line applications
+
+`pygenetic_code` translates DNA sequences either in one reading frame or in all six reading frames using the translation table of your choice.
+
+To translate a sequence in the current reading frame, you can use
+
+```python
+pygenetic_code --translate 
+```
+
+
+First, make sure you have a DNA sequence. We provide a few in [tests/](tests/) including [a very short sequence](tests/seq.fasta), [crAssphage](tests/JQ995537.fna), and [E. coli])(tests/U00096.3.fna.gz). 
+
 ## Library
 
-### Translating sequences
+### Using the C library directly in Python
+
 You can import the C library by importing PyGeneticCode. 
 
 There are two main methods that you can call:
@@ -70,22 +105,22 @@ There are two main methods that you can call:
 The first function just returns the translation of your DNA sequence in 5' -&gt; 3' format, so for example, this is the method you might use to translate an ORF.
 
 ```python
-PyGeneticCode.translate_one_frame(DNA\_sequence, translation\_table, verbose)
+PyGeneticCode.translate(DNA_sequence, translation_table)
 ```
 
-(See [examples/translate_asequence.py](examples/translate_asequence.py_) for an example.
+(See [examples/translate_a_sequence.py](examples/translate_a_sequence.py_) for an example.
 
 The second method returns all the 6 frame translations.
 
 ```python
-PyGeneticCode.translate(DNA\_sequence, translation\_table, verbose)
+PyGeneticCode.translate_six_frames(DNA_sequence, translation_table, verbose)
 ```
 
 (See [examples/translate_sequence_in_all_frames.py](examples/translate_sequence_in_all_frames.py) for an example invocation.)
 
 The DNA sequence is the DNA sequence you want to translate. The translation table must be one of the valid translation tables (see [pygenetic_code/genetic_code.translation_tables](pygenetic_code/genetic_code.translation_tables) for the valid tables).
 
-### Translate a codon
+## Translate a codon
 
 Another way to access the code in your python application is to access the `translate_codon()` function, that has this signature:
 
@@ -98,9 +133,9 @@ The `codon` is the codon that you want to translate as either an RNA (e.g. `AUG`
 The library provides other ways to access the genetic codes, and those are exemplified in the `pytest` files in [tests/](tests)
 
 
-## Standalone
+## Viewing translation tables
 
-You can just print translation tables using the `pygenetic_code` command. There are currently a couple of options:
+You can print the translation tables using the `pygenetic_code` command. There are currently a couple of options:
 
    - `json` prints the table in machine readable json format.
    - `difference` prints a `.tsv` file with the the difference from the standard (translation table 1) code
@@ -110,6 +145,4 @@ You can just print translation tables using the `pygenetic_code` command. There 
 
 Please cite this repository as:
 
-Edwards, Robert A. 2023. pygenetic_code. https://github.com/linsalrob/genetic_codes
-
-A full DOI citation is coming soon.
+Edwards, Robert A. 2023. pygenetic_code. https://github.com/linsalrob/genetic_codes. DOI: 10.5281/zenodo.10453453

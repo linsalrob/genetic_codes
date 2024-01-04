@@ -18,7 +18,7 @@ if __name__ == "__main__":
 
     for seqid, dna_sequence in stream_fasta(args.f):
         try:
-            translations = PyGeneticCode.translate(dna_sequence, args.t, args.j, args.v)
+            translations = PyGeneticCode.translate_six_frames(dna_sequence, args.t, args.j, args.v)
             for name in translations:
                 print(f">{name}\n{translations[name]}")
         except ValueError as e:
