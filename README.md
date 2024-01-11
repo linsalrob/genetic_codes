@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![GitHub language count](https://img.shields.io/github/languages/count/linsalrob/genetic_codes)
 [![PyPi](https://img.shields.io/pypi/pyversions/pygenetic-code?label=PyPi%20Versions)](https://pypi.org/project/pygenetic-code/)
-
+[![install with bioconda](https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg?style=flat)](http://bioconda.github.io/recipes/pygenetic_code/README.html)
 
 # Genetic Codes
 
@@ -14,14 +14,19 @@ The [NCBI Genetic Codes](https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cg
 
 # Installation
 
-You can install `pygenetic_code` with pip.
+We recommend installing `pygenetic_code` with bioconda:
+
+```bash
+mamba create -n pygenetic_code -c bioconda pygenetic_code
+pygenetic_code --version
+```
+
+Alternatively, you can install `pygenetic_code` with pip.
 
 ```python
 pip install pygenetic_code
 pygenetic_code --version
 ```
-
-A conda installation is in the works!
 
 # Usage
 
