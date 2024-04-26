@@ -11,6 +11,34 @@ A Python and C library with no external dependencies for translating DNA sequenc
 
 The [NCBI Genetic Codes](https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi?chapter=tgencodes#SG1) are central to working with alternate genetic codes. This Python tool kit includes a library that exposes the genetic codes so you can query a codon and get its variants or query a code and get its table. We also provide fast mechanisms to translate DNA sequences into protein sequences using the translation table of your choice.
 
+# Current genetic codes:
+1. The Standard Code (transl_table=1). By default all transl_table in GenBank flatfiles are equal to id 1, and this is not shown. When transl_table is not equal to id 1, it is shown as a qualifier on the CDS feature.
+2. The Vertebrate Mitochondrial Code (transl_table=2)
+3. The Yeast Mitochondrial Code (transl_table=3)
+4. The Mold, Protozoan, and Coelenterate Mitochondrial Code and the Mycoplasma/Spiroplasma Code (transl_table=4)
+5. The Invertebrate Mitochondrial Code (transl_table=5)
+6. The Ciliate, Dasycladacean and Hexamita Nuclear Code (transl_table=6)
+9. The Echinoderm and Flatworm Mitochondrial Code (transl_table=9)
+10. The Euplotid Nuclear Code (transl_table=10)
+11. The Bacterial, Archaeal and Plant Plastid Code (transl_table=11)
+12. The Alternative Yeast Nuclear Code (transl_table=12)
+13. The Ascidian Mitochondrial Code (transl_table=13)
+14. The Alternative Flatworm Mitochondrial Code (transl_table=14)
+15. Blepharisma Nuclear Code (transl_table=15)
+16. Chlorophycean Mitochondrial Code (transl_table=16)
+21. Trematode Mitochondrial Code (transl_table=21)
+22. Scenedesmus obliquus Mitochondrial Code (transl_table=22)
+23. Thraustochytrium Mitochondrial Code (transl_table=23)
+It is the similar to the bacterial code (transl_table 11) but it contains an additional stop codon (TTA) and also has a different set of start codons.
+24. Rhabdopleuridae Mitochondrial Code (transl_table=24)
+25. Candidate Division SR1 and Gracilibacteria Code (transl_table=25)
+26. Pachysolen tannophilus Nuclear Code (transl_table=26)
+27. Karyorelict Nuclear Code (transl_table=27)
+28. Condylostoma Nuclear Code (transl_table=28)
+29. Mesodinium Nuclear Code (transl_table=29)
+30. Peritrich Nuclear Code (transl_table=30)
+31. Blastocrithidia Nuclear Code (transl_table=31)
+33. Cephalodiscidae Mitochondrial UAA-Tyr Code (transl_table=33)
 
 # Installation
 
