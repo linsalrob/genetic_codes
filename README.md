@@ -56,6 +56,16 @@ pip install pygenetic_code
 pygenetic_code --version
 ```
 
+You can also clone this repository and install it from there:
+
+```bash
+git clone https://github.com/linsalrob/genetic_codes.git
+cd genetic_codes
+python -m venv venv
+source venv/bin/activate
+pip install .
+```
+
 # Usage
 
 There is a command line application, Python example code, and a library that you can use. The command line application and examples show you how to use the library.
