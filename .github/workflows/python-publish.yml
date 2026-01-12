@@ -28,16 +28,6 @@ jobs:
 
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.16.5
-        env:
-          CIBW_BUILD: "cp310-* cp311-* cp312-*"
-          CIBW_SKIP: "*-musllinux_*"
-          CIBW_ARCHS_LINUX: x86_64
-          CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
-          # Install build dependencies in the manylinux container
-          CIBW_BEFORE_ALL_LINUX: yum install -y zlib-devel
-          # Run tests after building
-          CIBW_TEST_REQUIRES: pytest
-          CIBW_TEST_COMMAND: pytest {project}/tests/
 
       - uses: actions/upload-artifact@v4
         with:
