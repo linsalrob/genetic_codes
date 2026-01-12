@@ -4,7 +4,7 @@ build-backend = "scikit_build_core.build"
 
 [project]
 name = "pygenetic_code"
-version = "0.20.1"
+version = "0.21.0"
 authors = [
   {name = "Rob Edwards", email = "raedwards@gmail.com"}
 ]
@@ -39,4 +39,5 @@ path = "pygenetic_code/_version.py"
 template = '''
 version = "${version}"
 '''
+
 
