@@ -4,7 +4,7 @@ build-backend = "scikit_build_core.build"
 
 [project]
 name = "pygenetic_code"
-version = "0.21.2"
+version = "0.21.3"
 authors = [
   {name = "Rob Edwards", email = "raedwards@gmail.com"}
 ]
@@ -56,5 +56,6 @@ before-all = "dnf install -y zlib-devel"
 # Run tests after building
 test-requires = "pytest"
 test-command = "pytest {project}/tests/"
+
 
 
