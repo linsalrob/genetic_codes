@@ -34,7 +34,7 @@ jobs:
 
     - uses: actions/upload-artifact@v3
       with:
-        name: cibw-wheels-${{ matrix.os }}-${{ strategy.job-index }}
+        name: cibw-wheels-${{ matrix.os }}
         path: ./wheelhouse/*.whl
 
   build_sdist:
