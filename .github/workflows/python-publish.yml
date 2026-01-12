@@ -37,7 +37,7 @@ jobs:
           CIBW_BUILD: "cp312-* cp313-*"
           CIBW_SKIP: "*-musllinux_*"
           CIBW_ARCHS_LINUX: "x86_64"
-          CIBW_MANYLINUX_X86_64_IMAGE: "manylinux2014"
+          CIBW_MANYLINUX_X86_64_IMAGE: "manylinux_2_28"
          
       - name: List built wheels
         run: ls -lh wheelhouse && python -c "import glob; print('\n'.join(glob.glob('wheelhouse/*.whl')))"
