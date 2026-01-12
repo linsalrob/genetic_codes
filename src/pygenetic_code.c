@@ -5,6 +5,7 @@
 #include "error.h"
 #include "translate.h"
 #include "colours.h"
+#include "seqs_to_ints.h"
 
 static PyObject * translate(PyObject *self, PyObject *args) {
     /*
@@ -132,3 +133,4 @@ static struct PyModuleDef PyGeneticCodeModule = {
 PyMODINIT_FUNC PyInit_PyGeneticCode(void) {
     return PyModule_Create(&PyGeneticCodeModule);
 };
+
