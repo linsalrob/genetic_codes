@@ -47,12 +47,12 @@ build = "cp3{10,11,12}-*"
 skip = "*-musllinux_*"
 
 [tool.cibuildwheel.linux]
-# Use manylinux2014 image for x86_64
-manylinux-x86_64-image = "manylinux2014"
+# Use manylinux_2_28 image for x86_64 (AlmaLinux 8 based, avoiding EOL CentOS 7)
+manylinux-x86_64-image = "manylinux_2_28"
 # Limit to x86_64 architecture
 archs = ["x86_64"]
 # Install build dependencies (zlib is needed for the C extension)
-before-all = "yum install -y zlib-devel"
+before-all = "dnf install -y zlib-devel"
 # Run tests after building
 test-requires = "pytest"
 test-command = "pytest {project}/tests/"
