@@ -20,7 +20,24 @@ pip install .
 
 ### Making a PyPi release
 
-I am using GitHub actions to release the code to PyPi, then you don't have to do anything except make a new release on GitHub. The build is automatic
+PyPI releases are automated through GitHub Actions using cibuildwheel to build manylinux wheels:
+
+1. Create a new release on GitHub with a version tag (e.g., v0.21.2)
+2. The `python-publish.yml` workflow will automatically:
+   - Build manylinux wheels for CPython 3.10, 3.11, and 3.12 using cibuildwheel
+   - Build a source distribution (sdist)
+   - Run tests on the built wheels to verify they work
+   - Upload both wheels and sdist to PyPI
+
+The wheels are built using the manylinux2014 image, ensuring they have the proper `manylinux_2_14_x86_64` platform tag (not `linux_x86_64`) and are compatible with a wide range of Linux distributions.
+
+For local testing of wheel building, you can use:
+```bash
+pip install cibuildwheel
+cibuildwheel --platform linux
+```
+
+The built wheels will be in the `wheelhouse/` directory.
 
 ### Versioning
 
