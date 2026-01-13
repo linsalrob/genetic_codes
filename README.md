@@ -135,7 +135,7 @@ pygenetic_code --translate
 ```
 
 
-First, make sure you have a DNA sequence. We provide a few in [tests/](tests/) including [a very short sequence](tests/seq.fasta), [crAssphage](tests/JQ995537.fna), and [E. coli])(tests/U00096.3.fna.gz). 
+First, make sure you have a DNA sequence. We provide a few in [tests/](tests/) including [a very short sequence](tests/seq.fasta), [crAssphage](tests/JQ995537.fna), and [E. coli](tests/U00096.3.fna.gz). 
 
 ## Library
 
