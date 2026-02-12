@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+title: 'Genetic Codes'
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Robert
+    name-particle: Robert
+    family-names: Edwards
+    email: raedwards@gmail.com
+    affiliation: Flinders University
+    orcid: 'https://orcid.org/0000-0001-8383-8949'
+doi: 10.5281/zenodo.10428670
+url: "https://github.com/linsalrob/genetic_codes"
+abstract: >-
+  Translate DNA sequences into Protein sequences using any of the different genetic codes.
+keywords:
+  - metagenome
+  - genome
+  - phage
+  - prophage
+  - DNA sequencing
+  - microbiome
+  - bacteria
+  - virus
+license: MIT
+
+
+
